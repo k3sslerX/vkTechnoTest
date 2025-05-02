@@ -1,0 +1,51 @@
+name: Go CI
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'subpub/**'
+      - 'subscribeservice/**'
+      - '.github/workflows/**'
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        module: ["subpub", "subscribeservice"]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.24"
+
+      - name: Install dependencies
+        run: |
+          export GO111MODULE=on
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          go install honnef.co/go/tools/cmd/staticcheck@latest
+          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
+
+      - name: Run golangci-lint for ${{ matrix.module }}
+        working-directory: ./${{ matrix.module }}
+        run: golangci-lint run --timeout 5m ./...
+
+      - name: Run staticcheck for ${{ matrix.module }}
+        working-directory: ./${{ matrix.module }}
+        run: staticcheck ./...
+
+      - name: Run tests for ${{ matrix.module }}
+        working-directory: ./${{ matrix.module }}
+        run: go test -v -race ./...
+
+      - name: Cache Go modules
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/go/pkg/mod
+            ./${{ matrix.module }}/.go-build
+          key: ${{ runner.os }}-go-${{ matrix.module }}-${{ hashFiles('**/go.sum') }}
