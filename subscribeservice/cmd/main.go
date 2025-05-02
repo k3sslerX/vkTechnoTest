@@ -1,9 +1,9 @@
 package main
 
 import (
-	"subpub"
+	"fmt"
 )
 
 func main() {
-	subpub.NewSubPub()
+	fmt.Println("hello world")
 }
