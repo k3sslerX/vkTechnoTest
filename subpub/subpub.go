@@ -91,7 +91,7 @@ func newSubPub() SubPub {
 	}
 
 	sp.wg.Add(1)
-	sp.start()
+	go sp.start()
 
 	return sp
 }
