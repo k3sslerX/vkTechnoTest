@@ -17,5 +17,5 @@ type SubPub interface {
 }
 
 func NewSubPub() SubPub {
-	panic("implement me")
+	return newSubPub()
 }
