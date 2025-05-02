@@ -40,7 +40,7 @@ jobs:
 
       - name: Run tests for ${{ matrix.module }}
         working-directory: ./${{ matrix.module }}
-        run: go test -v -race ./...
+        run: go test -v -race -cover ./...
 
       - name: Cache Go modules
         uses: actions/cache@v3
