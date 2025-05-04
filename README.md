@@ -69,10 +69,10 @@ import "github.com/k3sslerX/vkTechnoTest/subsribeservice/proto/pubsub"
 
 #### Тестирование
 Unit-тесты проводились с помощью утилиты `go test`  
-Тестовые данные представлены в файле `unit_test.go` пакета `subpub`, Job `lint-and-test`  
-Результаты тестирования представлены в CI-пайплайне *GitHub Actions*
+Тестовые данные представлены в файле `unit_test.go` пакета `subpub`  
+Результаты тестирования представлены в CI-пайплайне *GitHub Actions*, job `lint-and-test`
 
-Детали деплоя самого сервиса представлены в CD-пайплайне *GitHub Actions*, Job `build-and-push-subsservice`
+Детали деплоя самого сервиса представлены в CD-пайплайне *GitHub Actions*, job `build-and-push-subsservice`
 
 ### Конфигурация
 Конфигурация настраивается через переменные окружения
