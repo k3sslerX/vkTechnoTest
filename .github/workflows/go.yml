@@ -8,6 +8,10 @@ on:
       - 'subscribeservice/**'
       - '.github/workflows/**'
 
+env:
+  REGISTRY: ghcr.io
+  RL_IMAGE_NAME: k3sslerx/vktechnotest/subscribeservice
+
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
